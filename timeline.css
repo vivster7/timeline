@@ -1,0 +1,81 @@
+/* CSS declarations go here */
+.event {
+	width: 30px;
+	height: 60px;
+	display: inline-block;
+	fill: black;
+	stroke: white;
+}
+
+.selected {
+	fill: red;
+	stroke: white;
+}
+
+html, body {
+	margin: 0px;
+	width: 100%;
+	height: 100%;
+}
+
+.article-wrapper {
+	position: absolute;
+	top: 7%;
+	left: 5%;
+	background-color: gray;
+	max-width: 30%;
+}
+
+.clear-image {
+	position: relative;
+	height: 100%;
+	width: 100%;	
+	z-index: -2
+}
+
+.blurred-image {
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: -1;
+	opacity: 0.95;
+	-webkit-filter:blur(15px);
+}
+
+.content {
+	width: 33%;
+	height: 60%;
+	margin-left: 15px;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	word-break: break-all;
+}
+
+.timeline {
+	background-color: rgba(23,29,37,0.95); 
+	position: fixed;
+	bottom: 0px;
+	left: 0px;
+	width: 100%;
+	height: 10%;
+}
+
+.article-title {
+	background-color: rgba(210,210,210,0.5);
+	display: block;
+	font-size: 2em;
+	text-align: center;
+	margin-top: 30px;
+}
+
+.article-content {
+	font-size: 1.2em;
+	background-color: rgba(210,210,210,0.6);
+	max-height: 60%;
+	margin: 10px 0;
+	padding: 5px 50px;
+	overflow: auto;
+}

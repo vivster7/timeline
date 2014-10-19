@@ -1,0 +1,40 @@
+<head>
+  <title>Timeline</title>
+</head>
+
+<body>
+  {{> timeline}}
+</body>
+
+<template name="hello">
+  <button>Click Me</button>
+  <p>You've pressed the button {{counter}} times.</p>
+</template>
+
+<template name="timeline">
+	{{#if selected_event}}
+		<div class="clear-image" style="background: url({{selected_event.image}}); background-size: 100%; background-repeat: no-repeat;"></div>
+		<article class="content">
+			<div class="blurred-image" style="background: url({{selected_event.image}}); background-size: 333%; background-repeat: no-repeat;"></div>
+			<span class="article-title">Article Title</span>
+			<div class="article-content"> {{selected_event.article}} </div>
+		</article>	
+	{{else}}
+		<div class='test'>Select an event</div>
+	{{/if}}
+
+	<div class="timeline">
+		{{#each events}}
+			{{> event}}
+		{{/each}}
+	</div>
+</template>
+
+<template name="event">
+	<div class="event {{selected}}">
+		<svg width="30px" height="60px">
+			<rect x="10px" y="10px" width="6px" height="30px"/>
+		</svg>
+	</div>
+</template>
+
