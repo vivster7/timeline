@@ -16,8 +16,8 @@
 		<div class="clear-image" style="background: url({{selected_event.image}}); background-size: 100%; background-repeat: no-repeat;"></div>
 		<article class="content">
 			<div class="blurred-image" style="background: url({{selected_event.image}}); background-size: 333%; background-repeat: no-repeat;"></div>
-			<span class="article-title">Article Title</span>
-			<div class="article-content"> {{selected_event.article}} </div>
+			<span class="article-title">{{selected_event.title}}</span>
+			<div class="article-content"> {{selected_event.content}} </div>
 		</article>	
 	{{else}}
 		<div class='test'>Select an event</div>
