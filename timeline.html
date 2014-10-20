@@ -24,9 +24,13 @@
 	{{/if}}
 
 	<div class="timeline">
-		{{#each events}}
-			{{> event}}
-		{{/each}}
+		<div class="events-container">	
+		<div class="events-door events-door-left"></div>
+			{{#each events}}
+				{{> event}}
+			{{/each}}
+		<div class="events-door events-door-right"></div>
+		</div>
 	</div>
 </template>
 
