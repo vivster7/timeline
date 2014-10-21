@@ -15,6 +15,7 @@ if (Meteor.isClient) {
       Session.set('arrow_width', arrow_width);
       Session.set('first_event_date', first_event_date);
       Session.set("millisec_to_pixel_conversion",  eventline_width / millisec_diff_between_events );
+      Session.set("selected_event", 1);
 
       $(window).resize(function() {
         var eventline_width = $('#event-line').width();
@@ -26,12 +27,23 @@ if (Meteor.isClient) {
         Session.set("millisec_to_pixel_conversion",  eventline_width / millisec_diff_between_events );
       });
 
+      $(document).keydown(function (evt) {
+        if (evt.keyCode === 37) {
+          var event_id = Session.get('selected_event');
+          if (event_id > 1) Session.set("selected_event", event_id - 1) 
+        }
+        if (evt.keyCode === 39) {
+          var event_id = Session.get('selected_event');
+          if (event_id < 17) Session.set("selected_event", event_id + 1)
+        }
+      });
+
     }, 1000);
   });
 
   Template.timeline.helpers({
     selected_event: function() {
-      return Events.findOne(Session.get("selected_event"));
+      return Events.findOne({id:Session.get("selected_event")});
     },
 
     events: function() {
@@ -50,16 +62,22 @@ if (Meteor.isClient) {
     }
   });
 
+
   Template.eventline.events({
-    'resize': function(event) {
-      window.test = 'testing'
-      console.log(event);
+    'click #left-arrow': function(event) {
+      var event_id = Session.get('selected_event');
+      if (event_id > 1) Session.set("selected_event", event_id - 1)
+    },
+
+    'click #right-arrow': function(event) {
+      var event_id = Session.get('selected_event');
+      if (event_id < 17) Session.set("selected_event", event_id + 1)
     }
-  })
+  });
 
   Template.event.helpers({
     selected: function() {
-      return Session.equals("selected_event", this._id) ? "selected" : '';
+      return Session.equals("selected_event", this.id) ? "selected" : '';
     },
 
     distance_pushed: function() {
@@ -70,7 +88,7 @@ if (Meteor.isClient) {
 
   Template.event.events({
     'mouseover': function () {
-      Session.set("selected_event", this._id);
+      Session.set("selected_event", this.id);
     }
   });
 
@@ -96,6 +114,8 @@ if (Meteor.isServer) {
   Meteor.startup(function () {
 
     if (Events.find().count() === 0) {
+
+      var ids = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17];
 
       var contents = [
                         "An 18-year-old teenager, Michael Brown, is shot and killed on Saturday by a police officer in Ferguson, Mo. The circumstances surrounding the shooting are in dispute. The police say Mr. Brown was shot during a skirmish with the officer. A friend who was walking with Mr. Brown, Dorian Johnson, says the officer opened fire when the young men refused to move from the middle of the street to the sidewalk. He says Mr. Brown’s hands were over his head when the officer fired. All agree that Mr. Brown was unarmed.",
@@ -197,7 +217,8 @@ if (Meteor.isServer) {
                   ];
 
       for (var i = 0; i < titles.length; i++) {
-        Events.insert({ title: titles[i],
+        Events.insert({ id: ids[i],
+                        title: titles[i],
                         content: contents[i],
                         image: images[i],
                         link: links[i],
