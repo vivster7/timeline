@@ -9,19 +9,23 @@ if (Meteor.isClient) {
       var millisec_diff_between_events = last_event_date - first_event_date;
       var eventline_width = $('#event-line').width();
       var eventline_offset_left = $('#event-line').offset().left;
+      var arrow_width = $('#left-arrow').width();
       Session.set('eventline_width', eventline_width);
       Session.set('eventline_offset_left', eventline_offset_left);
+      Session.set('arrow_width', arrow_width);
+      Session.set('first_event_date', first_event_date);
+      Session.set("millisec_to_pixel_conversion",  eventline_width / millisec_diff_between_events );
 
       $(window).resize(function() {
         var eventline_width = $('#event-line').width();
         var eventline_offset_left = $('#event-line').offset().left;
+        var arrow_width = $('#left-arrow').width();
         Session.set('eventline_width', eventline_width);
         Session.set('eventline_offset_left', eventline_offset_left);
+        Session.set('arrow_width', arrow_width);
         Session.set("millisec_to_pixel_conversion",  eventline_width / millisec_diff_between_events );
       });
 
-      Session.set('first_event_date', first_event_date);
-      Session.set("millisec_to_pixel_conversion",  eventline_width / millisec_diff_between_events );
     }, 1000);
   });
 
@@ -39,6 +43,10 @@ if (Meteor.isClient) {
   Template.eventline.helpers({
     eventline_width: function() {
       return Session.get('eventline_width');
+    },
+
+    arrow_width: function() {
+      return Session.get('arrow_width');
     }
   });
 
@@ -55,7 +63,7 @@ if (Meteor.isClient) {
     },
 
     distance_pushed: function() {
-      return (this.date - Session.get("first_event_date")) * Session.get("millisec_to_pixel_conversion") + Session.get("eventline_offset_left");
+      return (this.date - Session.get("first_event_date")) * Session.get("millisec_to_pixel_conversion") + Session.get("eventline_offset_left") - 11;
     }
 
   });

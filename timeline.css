@@ -58,14 +58,14 @@ html, body {
 	white-space: nowrap;
 }
 
-.left-arrow {
+#left-arrow {
 	position: static;
 	float:left;
 	width:10%;
 	height:100%;
 }
 
-.right-arrow {
+#right-arrow {
 	float:right;
 	position: static;
 	width:10%;
