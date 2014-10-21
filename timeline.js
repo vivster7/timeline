@@ -1,19 +1,64 @@
 Events = new Meteor.Collection("events");
 
 if (Meteor.isClient) {
-  Template.timeline.events = function() {
-    return Events.find({});
-  };
+  Meteor.startup(function () {
+    var event_dates = Events.find({}, { fields:{date:1}, sort:{date:1} });
+    setTimeout(function() {
+      var first_event_date = event_dates.fetch()[0].date;
+      var last_event_date = event_dates.fetch()[event_dates.count() - 1].date;
+      var millisec_diff_between_events = last_event_date - first_event_date;
+      var eventline_width = $('#event-line').width();
+      var eventline_offset_left = $('#event-line').offset().left;
+      Session.set('eventline_width', eventline_width);
+      Session.set('eventline_offset_left', eventline_offset_left);
 
-  Template.timeline.selected_event = function () {
-    var ievent = Events.findOne(Session.get("selected_event"));
-    return ievent;
+      $(window).resize(function() {
+        var eventline_width = $('#event-line').width();
+        var eventline_offset_left = $('#event-line').offset().left;
+        Session.set('eventline_width', eventline_width);
+        Session.set('eventline_offset_left', eventline_offset_left);
+        Session.set("millisec_to_pixel_conversion",  eventline_width / millisec_diff_between_events );
+      });
 
-  };
+      Session.set('first_event_date', first_event_date);
+      Session.set("millisec_to_pixel_conversion",  eventline_width / millisec_diff_between_events );
+    }, 1000);
+  });
 
-  Template.event.selected = function() {
-    return Session.equals("selected_event", this._id) ? "selected" : '';
-  };
+  Template.timeline.helpers({
+    selected_event: function() {
+      return Events.findOne(Session.get("selected_event"));
+    },
+
+    events: function() {
+      return Events.find({});
+    }
+
+  });
+
+  Template.eventline.helpers({
+    eventline_width: function() {
+      return Session.get('eventline_width');
+    }
+  });
+
+  Template.eventline.events({
+    'resize': function(event) {
+      window.test = 'testing'
+      console.log(event);
+    }
+  })
+
+  Template.event.helpers({
+    selected: function() {
+      return Session.equals("selected_event", this._id) ? "selected" : '';
+    },
+
+    distance_pushed: function() {
+      return (this.date - Session.get("first_event_date")) * Session.get("millisec_to_pixel_conversion") + Session.get("eventline_offset_left");
+    }
+
+  });
 
   Template.event.events({
     'mouseover': function () {
@@ -21,21 +66,7 @@ if (Meteor.isClient) {
     }
   });
 
-  // counter starts at 0
-  Session.setDefault("counter", 0);
-
-  Template.hello.helpers({
-    counter: function () {
-      return Session.get("counter");
-    }
-  });
-
-  Template.hello.events({
-    'click button': function () {
-      // increment the counter when button is clicked
-      Session.set("counter", Session.get("counter") + 1);
-    }
-  });
+ 
 }
 
 
@@ -137,11 +168,32 @@ if (Meteor.isServer) {
                     "http://www.nytimes.com",
                   ];
 
+      var dates = [
+                    Date.UTC(2014, 7, 9,  0),
+                    Date.UTC(2014, 7, 10, 0),
+                    Date.UTC(2014, 7, 10, 12),
+                    Date.UTC(2014, 7, 11, 0),
+                    Date.UTC(2014, 7, 12, 0),
+                    Date.UTC(2014, 7, 13, 0),
+                    Date.UTC(2014, 7, 14, 0),
+                    Date.UTC(2014, 7, 15, 0),
+                    Date.UTC(2014, 7, 16, 0),
+                    Date.UTC(2014, 7, 17, 0),
+                    Date.UTC(2014, 7, 17, 12),
+                    Date.UTC(2014, 7, 18, 0),
+                    Date.UTC(2014, 7, 18, 12),
+                    Date.UTC(2014, 7, 20, 0),
+                    Date.UTC(2014, 7, 21, 0),
+                    Date.UTC(2014, 7, 24, 0),
+                    Date.UTC(2014, 7, 25, 0)
+                  ];
+
       for (var i = 0; i < titles.length; i++) {
         Events.insert({ title: titles[i],
                         content: contents[i],
                         image: images[i],
-                        link: links[i]
+                        link: links[i],
+                        date: dates[i]
         });
       }
     }

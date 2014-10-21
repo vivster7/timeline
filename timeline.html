@@ -24,7 +24,26 @@
 	{{/if}}
 
 	<div class="timeline">
-		<div class="events-container">	
+		<div class="left-arrow">
+			<!-- Arrow SVG from http://codepen.io/fixcl/pen/Fkcot-->
+		    <svg width="128px" height="100px" viewBox="0 0 50 80" xml:space="preserve">
+  				<polyline fill="none" stroke="#FFFFFF" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" points="45.63,75.80.375,38.087 45.63,0.375 "/>
+			</svg>  
+		</div>
+		{{> eventline}}
+<!-- 		<div id="event-line">	
+			<svg width="1024px" height="100px">
+				<rect y="45" width="1024" height="10"/>
+			</svg>
+		</div> -->
+		<div class="right-arrow">
+			<!-- Arrow SVG from http://codepen.io/fixcl/pen/Fkcot-->
+			 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="128px" height="100px" viewBox="0 0 50 80" xml:space="preserve">
+			    <polyline fill="none" stroke="#FFFFFF" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" points="
+				0.375,0.375 45.63,38.087 0.375,75.8 "/>
+			 </svg>
+		</div>
+		<div class="events-container">
 			{{#each events}}
 				{{> event}}
 			{{/each}}
@@ -32,10 +51,18 @@
 	</div>
 </template>
 
+<template name="eventline">
+	<div id="event-line">	
+		<svg width="{{eventline_width}}" height="100px">
+			<rect y="45" width="{{eventline_width}}" height="10"/>
+		</svg>
+	</div>
+</template>
+
 <template name="event">
-	<div class="event {{selected}}">
-		<svg width="30px" height="60px">
-			<rect x="10px" y="10px" width="6px" height="30px"/>
+	<div class="event {{selected}}" style="left:{{distance_pushed}}px;">
+		<svg width="22" height="22">
+			<circle cx="10" cy="10" r="10" />
 		</svg>
 	</div>
 </template>

@@ -1,23 +1,14 @@
 /* CSS declarations go here */
-.event {
-	width: 30px;
-	height: 60px;
-	display: inline-block;
-	fill: black;
-	stroke: white;
-	margin: 0 30px;
-}
 
-.selected {
-	fill: red;
-	stroke: white;
-}
+
+
 
 html, body {
 	margin: 0px;
 	width: 100%;
 	height: 100%;
 	font-family: 'Lucida Grande', verdana, sans-serif;
+	-webkit-font-smoothing: antialiased;
 }
 
 .article-wrapper {
@@ -38,7 +29,6 @@ html, body {
 .blurred-image {
 	height: 100%;
 	width: 100%;
-	margin-top: 30px;
 	position: absolute;
 	top: 0px;
 	left: 0px;
@@ -48,8 +38,9 @@ html, body {
 }
 
 .content {
+	margin-top: 30px;
 	width: 33%;
-	height: 38%;
+	height: 60%;
 	margin-left: 15px;
 	position: absolute;
 	top: 0px;
@@ -57,14 +48,37 @@ html, body {
 }
 
 .timeline {
-	background-color: rgba(23,29,37,0.95); 
+	background-color: rgba(225,227,221,0.95); 
 	position: fixed;
 	bottom: 0px;
 	left: 0px;
 	width: 100%;
 	height: 100px;
-	border-top: solid thick #14bfff;
+	border-top: solid thick rgba(0,91,155,1);
 	white-space: nowrap;
+}
+
+.left-arrow {
+	position: static;
+	float:left;
+	width:10%;
+	height:100%;
+}
+
+.right-arrow {
+	float:right;
+	position: static;
+	width:10%;
+	height:100%;
+}
+
+
+#event-line {
+	position: relative;
+	float:left;
+	width:80%;
+	height:100%;
+	fill: rgba(195, 197, 191, 1);
 }
 
 .events-container {
@@ -74,22 +88,35 @@ html, body {
 	width: 100%;
 }
 
-.events-container::-webkit-scrollbar {
-	display: none;
+.event {
+	position: absolute;
+	top: 40px;
+	width: 22px;
+	height: 22px;
+	display: inline-block;
+	fill: rgba(145, 147, 141, 1);
+	stroke: white;
+}
+
+.event.selected {
+	fill: rgba(0,91,155,1);
+	stroke: white;
 }
 
 .article-title {
-	background-color: rgba(210,210,210,0.5);
+	color: black;
+	background-color: rgba(225,227,221,.6);
 	display: block;
-	font-size: 2em;
+	font-size: 2.4em;
 	text-align: center;
-	margin-top: 30px;
 }
 
 .article-content {
-	font-size: 1.2em;
-	background-color: rgba(210,210,210,0.6);
-	max-height: 100%;
+	color: black;
+	font-size: 1.1em;
+	background-color: rgba(225,227,221,.6);
+	top: 40%;
+	max-height: 65%;
 	margin: 10px 0;
 	padding: 5px 50px;
 	overflow: auto;
