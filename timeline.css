@@ -64,10 +64,14 @@ p {
 
 .article-date {
 	position:absolute;
-	top: 5%;
-	right: 2%;
-	background-color: rgba(236, 240, 241,.8);
-	font-size: 2em;
+	top: 1em;
+	right: 1em;
+	font-size: 1.4em;
+}
+
+.year {
+	top:2.5em;
+	right:1em;
 }
 
 

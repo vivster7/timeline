@@ -45,7 +45,9 @@ if (Meteor.isClient) {
   Template.timeline.helpers({
     selected_event: function() {
       var event = Events.findOne({id:Session.get("selected_event")});
-      event.formatted_date = new Date(event.date).toDateString();
+      var date_array = new Date(event.date).toDateString().split(' ');
+      event.month_day = date_array[1] + ', ' + date_array[2];
+      event.year = date_array[3];
       return event;
     },
 
