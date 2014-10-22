@@ -19,8 +19,7 @@
 			<span class="article-title">{{selected_event.title}}</span>
 			<div class="article-content"> {{selected_event.content}} </div>
 		</article>	
-	{{else}}
-		<div class='test'>Select an event</div>
+		<span class="article-date"> {{selected_event.formatted_date}} </span>
 	{{/if}}
 
 	<div class="timeline">
@@ -38,7 +37,7 @@
 <template name="eventline">
 	<div id="left-arrow" class="arrow">
 		<!-- Arrow SVG from http://codepen.io/fixcl/pen/Fkcot-->
-	    <svg width="{{arrow_width}}" height="100" viewBox="0 0 50 80" xml:space="preserve">
+	    <svg width="{{arrow_width}}" height="100" viewBox="0 -45 100 160" xml:space="preserve">
 				<polyline fill="none" stroke="#FFFFFF" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" points="45.63,75.80.375,38.087 45.63,0.375 "/>
 		</svg>  
 	</div>
@@ -51,7 +50,7 @@
 
 	<div id="right-arrow" class="arrow">
 		<!-- Arrow SVG from http://codepen.io/fixcl/pen/Fkcot-->
-		 <svg  width="{{arrow_width}}" height="100" viewBox="0 0 50 80" xml:space="preserve">
+		 <svg  width="{{arrow_width}}" height="100" viewBox="-60 -45 100 160" xml:space="preserve">
 		    <polyline fill="none" stroke="#FFFFFF" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" points="
 			0.375,0.375 45.63,38.087 0.375,75.8 "/>
 		 </svg>
@@ -64,5 +63,6 @@
 			<circle cx="10" cy="10" r="10" />
 		</svg>
 	</div>
+		<span class="event_date {{selected}}" style="left:{{distance_pushed}}px;">{{formatted_date}}</span>
 </template>
 

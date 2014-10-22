@@ -15,7 +15,7 @@ if (Meteor.isClient) {
       Session.set('arrow_width', arrow_width);
       Session.set('first_event_date', first_event_date);
       Session.set("millisec_to_pixel_conversion",  eventline_width / millisec_diff_between_events );
-      Session.set("selected_event", 1);
+      // Session.set("selected_event", 1);
 
       $(window).resize(function() {
         var eventline_width = $('#event-line').width();
@@ -43,13 +43,14 @@ if (Meteor.isClient) {
 
   Template.timeline.helpers({
     selected_event: function() {
-      return Events.findOne({id:Session.get("selected_event")});
+      var event = Events.findOne({id:Session.get("selected_event")});
+      event.formatted_date = new Date(event.date).toDateString();
+      return event;
     },
 
     events: function() {
       return Events.find({});
-    }
-
+    },
   });
 
   Template.eventline.helpers({
@@ -80,10 +81,13 @@ if (Meteor.isClient) {
       return Session.equals("selected_event", this.id) ? "selected" : '';
     },
 
+    formatted _date: function() {
+      return new Date(this.date).toDateString();
+    },
+
     distance_pushed: function() {
       return (this.date - Session.get("first_event_date")) * Session.get("millisec_to_pixel_conversion") + Session.get("eventline_offset_left") - 11;
     }
-
   });
 
   Template.event.events({
@@ -91,7 +95,6 @@ if (Meteor.isClient) {
       Session.set("selected_event", this.id);
     }
   });
-
  
 }
 
