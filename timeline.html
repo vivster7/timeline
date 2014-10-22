@@ -2,24 +2,43 @@
   <title>Timeline</title>
 </head>
 
+<template name="style">
+	<style>
+		body {
+			background: url({{selected_event.image}});
+			background-size: cover;
+		}
+
+		.content::before {
+			display: block;
+			position: absolute;
+		    content: ' ';
+
+		    background-image: url({{selected_event.image}});
+		    -webkit-filter:blur(15px);
+		    background-size: cover;
+		    opacity: 0.4;
+
+		    width: 100%;
+		    height: 100%;
+		}
+	</style>
+</template>
+
 <body>
+  {{> style}}
   {{> timeline}}
 </body>
 
-<template name="hello">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
-</template>
-
 <template name="timeline">
 	{{#if selected_event}}
-		<div class="clear-image" style="background: url({{selected_event.image}}); background-size: 100%; background-repeat: no-repeat;"></div>
-		<article class="content">
-			<div class="blurred-image" style="background: url({{selected_event.image}}); background-size: 333%; background-repeat: no-repeat;"></div>
+		<!-- <div class="background clear-image" style="background: url({{selected_event.image}}); -webkit-background-size: cover; background-repeat: no-repeat;"></div> -->
+		<article class="content {{switch}}"> 
+			<!-- <div class="blurred-image" style="background: url({{selected_event.image}}); background-size: 333%; background-repeat: no-repeat;"></div> -->
 			<span class="article-title">{{selected_event.title}}</span>
-			<div class="article-content"> {{selected_event.content}} </div>
+			<p class="article-content"> {{selected_event.content}} </p>
 		</article>	
-		<span class="article-date"> {{selected_event.formatted_date}} </span>
+		<!-- <span class="article-date"> {{selected_event.formatted_date}} </span> -->
 	{{/if}}
 
 	<div class="timeline">

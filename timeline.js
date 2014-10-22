@@ -15,7 +15,8 @@ if (Meteor.isClient) {
       Session.set('arrow_width', arrow_width);
       Session.set('first_event_date', first_event_date);
       Session.set("millisec_to_pixel_conversion",  eventline_width / millisec_diff_between_events );
-      // Session.set("selected_event", 1);
+      Session.set("selected_event", 1);
+      Session.set("switch", 'up')
 
       $(window).resize(function() {
         var eventline_width = $('#event-line').width();
@@ -51,7 +52,18 @@ if (Meteor.isClient) {
     events: function() {
       return Events.find({});
     },
+
+    switch:function() {
+      return Session.get('switch')
+    }
   });
+
+  Template.timeline.events({
+    'click .content': function(event) {
+      switch_value = Session.equals("switch", "up") ? "down" : "up";
+      Session.set("switch", switch_value);
+    }
+  })
 
   Template.eventline.helpers({
     eventline_width: function() {
@@ -81,7 +93,7 @@ if (Meteor.isClient) {
       return Session.equals("selected_event", this.id) ? "selected" : '';
     },
 
-    formatted _date: function() {
+    formatted_date: function() {
       return new Date(this.date).toDateString();
     },
 
@@ -91,8 +103,14 @@ if (Meteor.isClient) {
   });
 
   Template.event.events({
-    'mouseover': function () {
+    'click': function () {
       Session.set("selected_event", this.id);
+    }
+  });
+
+  Template.style.helpers({
+    selected_event: function() {
+      return Events.findOne({id:Session.get("selected_event")});
     }
   });
  
