@@ -1,7 +1,9 @@
 Events = new Meteor.Collection("events");
 
 if (Meteor.isClient) {
-  Meteor.startup(function () {
+
+  //Intialize App
+  Meteor.autosubscribe(function () {
     var event_dates = Events.find({}, { fields:{date:1}, sort:{date:1} });
     setTimeout(function() {
       var first_event_date = event_dates.fetch()[0].date;
@@ -39,12 +41,14 @@ if (Meteor.isClient) {
         }
       });
 
-    }, 1000);
+    }, 2000);
   });
 
+  //Responsive timeline
   Template.timeline.helpers({
     selected_event: function() {
       var event = Events.findOne({id:Session.get("selected_event")});
+      if (!event) return;
       var date_array = new Date(event.date).toDateString().split(' ');
       event.month_day = date_array[1] + ', ' + date_array[2];
       event.year = date_array[3];
@@ -67,6 +71,7 @@ if (Meteor.isClient) {
     }
   })
 
+  //Responsive eventline
   Template.eventline.helpers({
     eventline_width: function() {
       return Session.get('eventline_width');
@@ -90,6 +95,8 @@ if (Meteor.isClient) {
     }
   });
 
+
+  //Responsive events
   Template.event.helpers({
     selected: function() {
       return Session.equals("selected_event", this.id) ? "selected" : '';
@@ -110,6 +117,8 @@ if (Meteor.isClient) {
     }
   });
 
+
+  //Responsive backgrounds
   Template.style.helpers({
     selected_event: function() {
       return Events.findOne({id:Session.get("selected_event")});
