@@ -53,17 +53,18 @@ if (Meteor.isClient) {
   //Responsive timeline
   Template.timeline.helpers({
     selected_event: function() {
-      return Events.findOne({id:Session.get("selected_event")});
+      return Events.findOne( { id:Session.get("selected_event") },
+                             { fields:{title:1, content:1} } );
     },
 
     selected_date: function() {
-      var selected_event = Events.findOne( {id:Session.get("selected_event")},
-                                           { fields:{date:1} }
-                                         );
+      var selected_event = Events.findOne( { id:Session.get("selected_event") },
+                                           { fields:{date:1} } );
+
       if (selected_event) {
         var formatted_date_array = new Date(selected_event.date).toDateString()
         formatted_date_array = formatted_date_array.split(' ').splice(1,4);
-        
+
         return selected_date = {
           month_day: formatted_date_array.slice(0,2).join(" "),
           year: formatted_date_array[2]
@@ -155,7 +156,6 @@ if (Meteor.isClient) {
   //Responsive backgrounds
   Template.style.helpers({
     background_image: function() {
-
       //Quickly hide content when switching events
       $('.content').css('transition', 'none');
       $('.content').removeClass('down');

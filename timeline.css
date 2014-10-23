@@ -20,14 +20,9 @@ p {
 .content {
 	position: relative;
 	background-color: white;
-	height:20%;
+	max-height:100%;
 	width: 100%;
 	overflow: hidden;
-	transition: height 1s ease;
-}
-
-.content.down {
-	height:100%;
 }
 
 /*http://codepen.io/adobe/pen/d056d1b26b9683c018f9bb9e0f1b0e1c?editors=010? */
@@ -51,13 +46,21 @@ p {
 .article-title {
 	display: block;
 	font-size: 3rem;
-	margin: 10px 7rem 20px 7rem;
+	margin: 1rem 7rem 1rem 7rem;
 	text-align: center;
 }
 
 .article-content {
+	max-height: 0px;
+	margin:0 auto;
+	overflow:hidden;
+	transition: all 1s ease;
+}
+
+.article-content.down {
 	position: relative;
-	height:50%;
+	max-height: 400px;
+	margin: 2.5em auto;
 	overflow: auto;
 }
 
@@ -69,7 +72,7 @@ p {
 }
 
 .year {
-	top:2.5em;
+	top:2em;
 	right:1em;
 }
 
