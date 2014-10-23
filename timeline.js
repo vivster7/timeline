@@ -77,7 +77,7 @@ if (Meteor.isClient) {
     },
 
     switch:function() {
-      $('.content').css('transition', 'height 1s ease 0.2');
+      $('.article-content').css('transition', 'all 1s ease');
       $('.article-content').scrollTop(0);
       return Session.get('switch')
     }
@@ -157,8 +157,8 @@ if (Meteor.isClient) {
   Template.style.helpers({
     background_image: function() {
       //Quickly hide content when switching events
-      $('.content').css('transition', 'none');
-      $('.content').removeClass('down');
+      $('.article-content').css('transition', 'none');
+      $('.article-content').removeClass('down');
       Session.set("switch", "up");
 
       return Events.findOne({id:Session.get("selected_event")}, { fields:{image:1} });
