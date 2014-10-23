@@ -3,45 +3,51 @@ Events = new Meteor.Collection("events");
 if (Meteor.isClient) {
 
   //Intialize App
-  Meteor.autosubscribe(function () {
-    var event_dates = Events.find({}, { fields:{date:1}, sort:{date:1} });
-    setTimeout(function() {
-      var first_event_date = event_dates.fetch()[0].date;
-      var last_event_date = event_dates.fetch()[event_dates.count() - 1].date;
-      var millisec_diff_between_events = last_event_date - first_event_date;
-      var eventline_width = $('#event-line').width();
-      var eventline_offset_left = $('#event-line').offset().left;
-      var arrow_width = $('#left-arrow').width();
-      Session.set('eventline_width', eventline_width);
-      Session.set('eventline_offset_left', eventline_offset_left);
-      Session.set('arrow_width', arrow_width);
-      Session.set('first_event_date', first_event_date);
-      Session.set("millisec_to_pixel_conversion",  eventline_width / millisec_diff_between_events );
-      Session.set("selected_event", 1);
-      Session.set("switch", 'up')
+  Meteor.startup(function () {
+    //Eventline
+    var eventline_width = $('#event-line').width();
+    var eventline_offset_left = $('#event-line').offset().left;
+    Session.set('eventline_width', eventline_width);
+    Session.set('eventline_offset_left', eventline_offset_left);
 
-      $(window).resize(function() {
-        var eventline_width = $('#event-line').width();
-        var eventline_offset_left = $('#event-line').offset().left;
-        var arrow_width = $('#left-arrow').width();
-        Session.set('eventline_width', eventline_width);
-        Session.set('eventline_offset_left', eventline_offset_left);
-        Session.set('arrow_width', arrow_width);
-        Session.set("millisec_to_pixel_conversion",  eventline_width / millisec_diff_between_events );
-      });
+    //Arrow
+    var arrow_width = $('#left-arrow').width();
+    Session.set('arrow_width_svg', arrow_width);
 
-      $(document).keydown(function (evt) {
-        if (evt.keyCode === 37) {
-          var event_id = Session.get('selected_event');
-          if (event_id > 1) Session.set("selected_event", event_id - 1) 
-        }
-        if (evt.keyCode === 39) {
-          var event_id = Session.get('selected_event');
-          if (event_id < 17) Session.set("selected_event", event_id + 1)
-        }
-      });
+    //Init
+    Session.set("selected_event", 1);
+    Session.set("switch", 'up')
 
-    }, 2000);
+    //Resize listener
+    $(window).resize(function() {
+      Session.set("resize_listener", new Date());
+    });
+
+    //Arrow key listener
+    $(document).keydown(function (evt) {
+      //left
+      if (evt.keyCode === 37) {
+        var event_id = Session.get('selected_event');
+        if (event_id > 1) Session.set("selected_event", event_id - 1) 
+      }
+
+      //right
+      if (evt.keyCode === 39) {
+        var event_id = Session.get('selected_event');
+        if (event_id < 17) Session.set("selected_event", event_id + 1)
+      }
+      //up
+      if (evt.keyCode === 38) {
+        Session.set("switch", "up");
+      }
+
+      //down
+      if(evt.keyCode === 40) {
+        Session.set("switch", "down");
+      }
+
+    });
+
   });
 
   //Responsive timeline
@@ -77,8 +83,8 @@ if (Meteor.isClient) {
       return Session.get('eventline_width');
     },
 
-    arrow_width: function() {
-      return Session.get('arrow_width');
+    arrow_width_svg: function() {
+      return Session.get('arrow_width_svg');
     }
   });
 
@@ -107,7 +113,23 @@ if (Meteor.isClient) {
     },
 
     distance_pushed: function() {
-      return (this.date - Session.get("first_event_date")) * Session.get("millisec_to_pixel_conversion") + Session.get("eventline_offset_left") - 11;
+      // This is used to cause function update on resize change."
+      var resize_listener = Session.get("resize_listener"); 
+
+      //Event dates
+      console.log(event_dates);
+      var event_dates = Events.find({}, { fields:{date:1}, sort:{date:1} });
+      var first_event_date = event_dates.fetch()[0].date;
+      var last_event_date = event_dates.fetch()[event_dates.count() - 1].date;
+      var millisec_diff_between_events = last_event_date - first_event_date;
+
+      //Eventline
+      var eventline_width = $('#event-line').width();
+      Session.set('eventline_width', eventline_width);
+
+      var millisec_to_pixel_conversion = eventline_width / millisec_diff_between_events;
+
+      return (this.date - first_event_date) * millisec_to_pixel_conversion + Session.get('eventline_offset_left') - 11;
     }
   });
 
