@@ -7,7 +7,7 @@ In meteor, this is easiest to accomplish if they are on the html page. -->
 <template name="style">
 	<style>
 		body {
-			background: url({{selected_event.image}});
+			background: url({{background_image.image}});
 			background-size: cover;
 		}
 
@@ -16,7 +16,7 @@ In meteor, this is easiest to accomplish if they are on the html page. -->
 			position: absolute;
 		    content: ' ';
 
-		    background-image: url({{selected_event.image}});
+		    background-image: url({{background_image.image}});
 		    -webkit-filter:blur(15px);
 		    background-size: cover;
 		    opacity: 0.4;
@@ -37,8 +37,8 @@ In meteor, this is easiest to accomplish if they are on the html page. -->
 		<article class="content {{switch}}"> 
 			<span class="article-title">{{selected_event.title}}</span>
 			<p class="article-content"> {{selected_event.content}} </p>
-			<span class="article-date month-day"> {{selected_event.month_day}} </span>
-			<span class="article-date year"> {{selected_event.year}} </span>
+			<span class="article-date month-day"> {{selected_date.month_day}} </span>
+			<span class="article-date year"> {{selected_date.year}} </span>
 		</article>	
 	{{/if}}
 
