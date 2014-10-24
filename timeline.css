@@ -13,15 +13,12 @@ html, body {
 	height: 100%;
 	font-size:100%;
 	overflow:hidden;
-  	font-family: Georgia, serif;
-}
-
-h1, .article-date {
-	font-family: Arial, verdana, sans-serif
+	font-family: Arial, verdana, sans-serif;
 }
 
 p {
 	font-size: 1.8rem;
+  	font-family: Georgia, serif;
 	line-height: 1.4;
 	max-width: 30em;
 	margin: 2.5em auto;

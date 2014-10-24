@@ -17,9 +17,12 @@ In meteor, this is easiest to accomplish if they are on the html page. -->
 		    content: ' ';
 
 		    background-image: url({{background_image.image}});
-		    -webkit-filter:blur(15px);
 		    background-size: cover;
 		    opacity: 0.4;
+		    filter:blur(15px);
+		    -webkit-filter:blur(15px);
+		    filter:url('#blur');
+		    -webkit-filter:url('#blur');
 
 		    width: 100%;
 		    height: 100%;
@@ -30,6 +33,15 @@ In meteor, this is easiest to accomplish if they are on the html page. -->
 <body>
   {{> style}}
   {{> timeline}}
+
+<svg xmlns="http://www.w3.org/2000/svg"  version="1.1">
+	<defs>
+		<filter id="blur">
+			<feGaussianBlur stdDeviation="5"/>
+		</filter>
+	</defs>
+</svg>
+
 </body>
 
 <template name="timeline">
@@ -85,4 +97,5 @@ In meteor, this is easiest to accomplish if they are on the html page. -->
 	</div>
 		<span class="event_date {{selected}}" style="left:{{distance_pushed}}px;">{{formatted_date}}</span>
 </template>
+
 
