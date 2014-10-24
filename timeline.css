@@ -63,7 +63,7 @@ p {
 
 .article-content.down {
 	position: relative;
-	max-height: 400px;
+	max-height: 360px;
 	margin: 2.5em auto;
 	overflow: auto;
 }
@@ -163,4 +163,21 @@ p {
 
 .event_date.selected {
 	visibility: visible;
+}
+
+/* phones */
+@media only screen and (max-width: 767px) {
+	p {
+		font-size: 1.4rem;
+	}
+
+	.article-content.down {
+		margin: 0.5em auto;
+	}
+}
+
+@media only screen and (max-height: 678px) {
+	.article-content.down {
+		max-height: 175px;
+	}
 }
