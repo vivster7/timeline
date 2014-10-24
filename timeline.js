@@ -138,7 +138,10 @@ if (Meteor.isClient) {
 
       //Eventline
       var eventline_width = $('#event-line').width();
+      var eventline_offset_left = $('#event-line').offset().left;
       Session.set('eventline_width', eventline_width);
+      Session.set('eventline_offset_left', eventline_offset_left);
+
 
       var millisec_to_pixel_conversion = eventline_width / millisec_diff_between_events;
 

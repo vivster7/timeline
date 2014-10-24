@@ -57,13 +57,13 @@ In meteor, this is easiest to accomplish if they are on the html page. -->
 <template name="eventline">
 	<div id="left-arrow" class="arrow">
 		<!-- Arrow SVG from http://codepen.io/fixcl/pen/Fkcot-->
-	    <svg width="{{arrow_width_svg}}" height="100" viewBox="0 -45 100 160" xml:space="preserve">
+	    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="{{arrow_width_svg}}" height="100" viewBox="0 -45 100 160" xml:space="preserve">
 				<polyline fill="none" stroke="#FFFFFF" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" points="45.63,75.80.375,38.087 45.63,0.375 "/>
 		</svg>  
 	</div>
 
 	<div id="event-line">	
-		<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="{{eventline_width}}" height="100">
+		<svg width="{{eventline_width}}" height="100">
 			<rect y="45" width="{{eventline_width}}" height="10"/>
 		</svg>
 	</div>
