@@ -176,7 +176,7 @@ p {
 	}
 }
 
-@media only screen and (max-height: 678px) {
+@media only screen and (max-height: 480px) {
 	.article-content.down {
 		max-height: 175px;
 	}
