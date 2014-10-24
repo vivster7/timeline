@@ -34,7 +34,7 @@ In meteor, this is easiest to accomplish if they are on the html page. -->
 
 <template name="timeline">
 	{{#if selected_event}}
-		<article class="content"> 
+		<article class="content {{switch}}"> 
 			<h1 class="article-title">{{selected_event.title}}</h1>
 			<p class="article-content {{switch}}"> {{selected_event.content}} </p>
 			<span class="article-date month-day"> {{selected_date.month_day}} </span>

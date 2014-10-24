@@ -40,11 +40,16 @@ p {
 	width: 6rem;
 	height: 6rem;
 	transition: transform 0.2s ease-out 0.5s;
+	-webkit-transition: transform 0.2s ease-out 0.5s;
+	-moz-transform: transform 0.2s ease-out 0.5s;;
 	-webkit-transform:rotate(180deg);
+	-moz-transform:rotate(180deg);
+
 }
 
 .down .article-title::before {
 	-webkit-transform:rotate(0deg);
+	-moz-transform:rotate(0deg);
 }
 
 .article-title {
@@ -59,6 +64,8 @@ p {
 	margin:0 auto;
 	overflow:hidden;
 	transition: all 1s ease;
+	-webkit-transition: transition: all 1s ease;
+	
 }
 
 .article-content.down {
@@ -66,6 +73,10 @@ p {
 	max-height: 360px;
 	margin: 2.5em auto;
 	overflow: auto;
+}
+
+.content:focus {
+	outline:none;
 }
 
 .article-date {
