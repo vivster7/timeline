@@ -65,7 +65,7 @@ p {
 	overflow:hidden;
 	transition: all 1s ease;
 	-webkit-transition: transition: all 1s ease;
-	
+
 }
 
 .article-content.down {
@@ -156,7 +156,7 @@ p {
 }
 
 .event_date {
-	font-size: 0.5em;
+	font-size: 0.8em;
 	position: absolute;
 	top: 65px;
 	visibility: hidden;
