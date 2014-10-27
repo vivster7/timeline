@@ -2,34 +2,6 @@
   <title>Timeline</title>
 </head>
 
-<!-- These styles need to be reactive (background changes based on input). 
-In meteor, this is easiest to accomplish if they are on the html page. -->
-<template name="style">
-	<style>
-		body {
-			background: url({{background_image.image}});
-			background-size: cover;
-		}
-
-		.content::before {
-			display: block;
-			position: absolute;
-		    content: ' ';
-
-		    background-image: url({{background_image.image}});
-		    background-size: cover;
-		    opacity: 0.4;
-		    filter:blur(15px);
-		    -webkit-filter:blur(15px);
-		    filter:url('#blur');
-		    -webkit-filter:url('#blur');
-
-		    width: 100%;
-		    height: 100%;
-		}
-	</style>
-</template>
-
 <body>
   {{> style}}
   {{> timeline}}
@@ -43,6 +15,36 @@ In meteor, this is easiest to accomplish if they are on the html page. -->
 </svg>
 
 </body>
+
+
+<!-- These styles need to be reactive (background changes based on input). 
+In meteor, this is easiest to accomplish if they are on the html page. -->
+<template name="style">
+	<style>
+		body {
+			background: url({{background_image.image}});
+			background-size: cover;
+		}
+
+		.content::before {
+			display: block;
+			position: absolute;
+		    content: ' ';
+		    width: 100%;
+		    height: 100%;
+		    background-image: url({{background_image.image}});
+		    background-size: cover;
+		    opacity: 0.4;
+
+		    filter:blur(15px);
+		    -webkit-filter:blur(15px);
+		    filter:url('#blur');
+		    -webkit-filter:url('#blur');
+		}
+	</style>
+</template>
+
+
 
 <template name="timeline">
 	{{#if selected_event}}
