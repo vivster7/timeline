@@ -10,4 +10,3 @@ This was developed to experiment with a more graphical timeline representation. 
 ## Highlights
  - Responsive JavaScript Timeline -- The timeline and spacing between events is dynamically generated based on event dates and window size.
  - Dynamic Blur - CSS psudeo elements and a blur filter are applied to automatically create the "frosted glass" effect on any background.
- - 
